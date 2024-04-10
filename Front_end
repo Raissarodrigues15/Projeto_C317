@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Minha Aplicação - Login</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #e6f2ff; /* Fundo azul claro */
+        }
+
+        .container {
+            width: 80%; /* Largura máxima de 80% da largura da janela do navegador */
+            max-width: 600px; /* Largura máxima de 600 pixels */
+            margin: 0 auto;
+            padding: 20px;
+            text-align: center;
+        }
+
+        .service-notice {
+            background-color: #d1c4e9; /* Cor roxo claro */
+            color: #140f0f;
+            padding: 20px 30px; /* Espaçamento interno */
+            border-radius: 10px; /* Bordas arredondadas */
+            margin-bottom: 20px; /* Margem inferior */
+        }
+
+        .sidebar {
+            background-color: #0056b3; /* Azul escuro */
+            color: #fff;
+            padding: 10px;
+            width: 80px;
+            text-align: center;
+        }
+
+        .welcome-box,
+        .login-box {
+            width: calc(60% - 20px); /* Largura de 60% com margem de 20px */
+            background-color: #c4d1e9; /* Roxo claro */
+            padding: 20px;
+            border-radius: 5px;
+            text-align: center;
+            margin-right: 20px;
+            display: inline-block; /* Exibido em linha para largura igual */
+            vertical-align: top; /* Alinhamento vertical */
+        }
+
+        h1 {
+            font-size: 36px;
+            color: #333;
+        }
+
+        .form {
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 5px;
+            box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .form input[type="text"],
+        .form input[type="password"] {
+            width: calc(100% - 22px);
+            padding: 10px;
+            margin-bottom: 20px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            box-sizing: border-box;
+        }
+
+        .form input[type="submit"] {
+            width: 100%;
+            padding: 10px;
+            background-color: #007bff;
+            color: #fff;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        .form input[type="submit"]:hover {
+            background-color: #0056b3;
+        }
+
+        .register-message {
+            margin-top: 20px;
+            font-size: 16px;
+            color: #333;
+        }
+
+        .register-message a {
+            color: #007bff;
+            text-decoration: none;
+            font-weight: bold;
+        }
+
+        .resolution-text {
+            font-size: 14px; /* Aumentando o tamanho da fonte para 14px */
+            color: #333;
+            text-align: center;
+            margin-top: 10px;
+        }
+
+        .welcome-title {
+            font-size: 24px; /* Diminuindo o tamanho da fonte para 24px */
+            color: #333;
+            margin-bottom: 10px; /* Adicionando margem inferior */
+        }
+
+        .sidebar-and-resolution {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+
+        .footer {
+            background-color: #add8e6; /* Cor de fundo do rodapé azul claro */
+            color: #000; /* Cor do texto do rodapé */
+            padding: 10px 20px; /* Espaçamento interno no rodapé */
+            width: 100%; /* Largura total */
+            position: fixed; /* Fixa o rodapé na parte inferior da página */
+            bottom: 0; /* Coloca o rodapé no final da página */
+            right: 0; /* Alinha o rodapé à direita */
+            text-align: right; /* Alinha o texto à direita */
+        }
+
+        .robot-image {
+            margin-bottom: 10px; /* Adiciona margem inferior para separar do texto */
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="service-notice">
+            <p>Bem-vindo ao Atendimento LCR</p>
+        </div>
+        <div class="sidebar-and-resolution">
+            <div class="sidebar">
+                <p>24 horas</p>
+            </div>
+            <div class="resolution-text">
+                <img src="Chatbot Chat Message.jpg" alt="Imagem do Robô" style="max-width: 100px;" class="robot-image"><br>
+                Resolução até 95% das chamadas.
+            </div>
+        </div>
+        <div class="welcome-box">
+            <h1 class="welcome-title">Para atendimento, realize o login:</h1>
+        </div>
+        <div class="login-box">
+            <h2>Login</h2>
+            <form action="/login" method="post" class="form">
+                <input type="text" name="username" placeholder="Usuário">
+                <input type="password" name="password" placeholder="Senha">
+                <input type="submit" value="Entrar">
+            </form>
+            <div class="register-message">
+                Não possui cadastro? <a href="#">Cadastrar-se agora</a>.
+            </div>
+        </div>
+    </div>
+    <div class="footer">
+        lcr@gmail.com
+    </div>
+</body>
+</html>
