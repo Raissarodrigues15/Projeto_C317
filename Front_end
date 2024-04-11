@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Minha Aplicação - Login</title>
+    <title>Login</title>
     <!-- Estilos CSS -->
     <style>
         /* Estilos CSS para o corpo da página */
@@ -11,7 +11,10 @@
             font-family: Arial, sans-serif; /* Define a fonte */
             margin: 0; /* Remove margens */
             padding: 0; /* Remove preenchimento */
-            background-color: #e6f2ff; /* Define cor de fundo azul claro */
+            background-image: url('fundo.jpg'); /* Define imagem de fundo */
+            background-size: cover; /* Cobrir todo o elemento body */
+            background-position: center; /* Centralizar a imagem */
+            background-repeat: no-repeat; /* Não repetir a imagem */
         }
 
         /* Estilos para o contêiner principal */
@@ -21,6 +24,9 @@
             margin: 0 auto; /* Centraliza horizontalmente */
             padding: 20px; /* Adiciona preenchimento interno */
             text-align: center; /* Alinha o conteúdo ao centro */
+            background-color: rgba(255, 255, 255, 0.8); /* Adiciona um fundo branco translúcido */
+            border-radius: 10px; /* Adiciona bordas arredondadas */
+            box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1); /* Adiciona sombra */
         }
 
         /* Estilos para a mensagem de serviço */
@@ -122,6 +128,7 @@
         /* Estilos para a imagem do robô */
         .robot-image {
             margin-bottom: 10px; /* Adiciona margem inferior para separar do texto */
+            max-width: 300px; /* Define a largura máxima da imagem */
         }
 
         /* Estilos para a barra lateral e texto de resolução */
@@ -160,8 +167,8 @@
             </div>
             <!-- Texto de resolução com imagem do robô -->
             <div class="resolution-text">
-                <img src="Chatbot Chat Message.jpg" alt="Imagem do Robô" style="max-width: 100px;" class="robot-image"><br>
-                Resolução até 95% das chamadas.
+                <img src="roboCapa.JPG" alt="Imagem do robô" style="max-width: 150px;" class="robot-image"><br>
+                Resolução de até 95% das chamadas.
             </div>
         </div>
         <!-- Caixa de boas-vindas -->
