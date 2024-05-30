@@ -22,7 +22,7 @@
             border-radius: 10px; /* Arrendonda os cantos*/
             background-color: #fff;/* Define cor de fundo do co*/
             box-shadow: 0 0 5px rgba(0, 0, 0, 0.1); /* Adiciona sombra ao container */
-            border: 20px solid #b9b2de; /* Ajustar a largura da borda e alterar a cor */
+            border: 1px solid #b9b2de; /* Ajustar a largura da borda e alterar a cor */
             position: relative; /* Adicionar posição relativa */
         }
          /* Titulo */
@@ -126,12 +126,30 @@
             if (message === '') return;
             appendMessage(message, 'user');
             userInput.value = '';
+            /*
             setTimeout(function() {
                 const botResponse = generateBotResponse(message);
                 appendMessage(botResponse, 'bot');
             }, 1000);
+            */
+           fetch('/chat', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({message: message})
+           })
+           .then(response => response.json())
+           .then(data => {
+            const BotResponse = data.response;
+            appendMessage(botResponse, 'bot');
+           })
+           .catch(error => {
+            console.error('Erro ao obter a resposta do bot: ', error());
+           });
         });
 
+        /*
         // Função para gerar a resposta do bot com base na mensagem do usuário
         function generateBotResponse(message) {
             message = message.toLowerCase();
@@ -145,6 +163,7 @@
                 return "Desculpe, não entendi a pergunta. Como posso ajudar?";
             }
         }
+        */
 
         // Função para adicionar mensagem ao chatbox
         function appendMessage(message, sender) {
