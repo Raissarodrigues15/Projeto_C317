@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chatbot</title>
+    <!-- estilos CSS: -->
+    <style>
+        /* Estilos CSS para o layout do chatbot */
+        body {
+            margin: 0; /* Margem */
+            padding: 0; /* preenchimento */
+            background-color: #f9f9f9; /* cor do fundo */
+            font-family: Arial, sans-serif;/* fonte */
+        }
+
+        .chat-container {
+            max-width: 800px;/* Define a largura maxima de bate papo*/
+            margin: 0 auto; /* Centralizar horizontalmente */
+            margin-top: 10vh; /* Centralizar verticalmente */
+            padding: 200px; /* Reduzir o preenchimento */
+            border-radius: 10px; /* Arrendonda os cantos*/
+            background-color: #fff;/* Define cor de fundo do co*/
+            box-shadow: 0 0 5px rgba(0, 0, 0, 0.1); /* Adiciona sombra ao container */
+            border: 1px solid #b9b2de; /* Ajustar a largura da borda e alterar a cor */
+            position: relative; /* Adicionar posição relativa */
+        }
+         /* Titulo */
+        .title {
+            position: absolute; /* Posicionamento absoluto */
+            top: -30px; /* Alinhamento acima do contêiner */
+            left: 50%; /* Centralizar horizontalmente */
+            transform: translateX(-50%); /* Ajustar a posição horizontalmente */
+            background-color: #fff; /* Cor de fundo */
+            padding: 5px 10px; /* Espaçamento interno */
+            border-radius: 5px; /* Borda arredondada */
+            color: #a9a6ba; /* Cor do texto */
+            font-weight: bold; /* Negrito */
+            font-size: 18px; /* Tamanho da fonte */
+        }
+         /* Bem vindo */
+        .welcome-message {
+            margin-bottom: 20px; /* Espaçamento inferior */
+            padding: 10px; /* Espaçamento interno */
+            border-radius: 10px; /* Borda arredondada */
+            background-color: #7c72bb; /* Cor de fundo roxa */
+            color: #fff; /* Cor do texto branco */
+        }
+
+        .message {
+            margin-bottom: 20px; /* Reduzir a margem inferior */
+            padding: 10px; /* Espaçamento interno*/
+            border-radius: 10px;/* Borda arrendondada */
+            background-color: #7c72bb; /* Alterar a cor para roxa */
+            color: #fff; /* Alterar a cor do texto para branco */
+        }
+        /* Mensagem do usuario*/
+        .user-message {
+            text-align: right; /* Alinha o texto a direita */
+        }
+        /* Mensagem do bot */
+        .bot-message {
+            text-align: left; /* Alinha o texto a esquerda */
+        }
+        /* Entrada do texto */
+        input[type="text"] {
+            width: calc(100% - 60px); /* Define a largura do input como 100% da largura do seu contêiner menos 60 pixels */
+            padding: 10px; /* Adiciona 10 pixels de preenchimento interno em todas as direções */
+            margin-right: 10px; /* Adiciona 10 pixels de margem à direita */
+            border: 2px solid #f9f6f6; /* Adiciona uma borda sólida de 2 pixels com a cor #f9f6f6 */
+            border-radius: 5px; /* Arredonda os cantos do input com um raio de 5 pixels */
+        }
+        /* Botão */
+        button {
+            padding: 10px 20px; /* Define o preenchimento interno do botão como 10 pixels no topo e na base, e 20 pixels nos lados esquerdo e direito */
+            background-color: #6A5ACD; /* Define a cor de fundo do botão como #6A5ACD */
+            color: #fff; /* Define a cor do texto do botão como branco (#fff) */
+            border: none; /* Remove a borda do botão */
+            border-radius: 5px; /* Arredonda os cantos do botão com um raio de 5 pixels */
+            cursor: pointer; /* Define o cursor do mouse como um ponteiro quando estiver sobre o botão */
+        }
+        /* Estilo para a imagem do robô */
+        .robot-image {
+            float: right; /* Alinha a imagem à esquerda */
+            margin-left: 10px; /* Adiciona uma margem à direita para separar a imagem do texto */
+        }
+    </style>
+</head>
+<body>
+    <!-- Conteúdo com imagem -->
+    <div class="resolution-text">
+        <img src="Chatbot Chat Message.jpg" alt="Imagem do Robô" style="max-width: 100px;" class="robot-image"><br>
+    </div>
+    <div class="chat-container">
+        <div class="title">LCR</div> <!-- Título "LCR" na borda -->
+        <!-- Mensagem de boas-vindas -->
+        <div class="welcome-message">
+            Bem-vindo ao nosso serviço de atendimento!
+        </div>
+        <!-- Nova mensagem -->
+        <div class="welcome-message">
+            Como posso ajudá-lo hoje?
+        </div>
+    
+        <!-- Contêiner do chatbot -->
+        <div id="chat-box"></div>
+
+        <!-- Formulário de entrada do usuário -->
+        <form id="user-form">
+            <input type="text" id="user-input" placeholder="Digite uma mensagem...">
+            <button type="submit">Enviar</button>
+        </form>
+    </div>
+
+    <!-- Scripts JavaScript aqui -->
+    <script>
+        // Selecionar elementos do DOM
+        const chatBox = document.getElementById('chat-box');
+        const userForm = document.getElementById('user-form');
+        const userInput = document.getElementById('user-input');
+
+        // Adicionar evento de envio de formulário do usuário
+        userForm.addEventListener('submit', function(event) {
+            event.preventDefault();
+            const message = userInput.value.trim();
+            if (message === '') return;
+            appendMessage(message, 'user');
+            userInput.value = '';
+            
+            setTimeout(function() {
+                const botResponse = generateBotResponse(message);
+                appendMessage(botResponse, 'bot');
+            }, 1000);
+            
+           fetch('/chat', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({message: message})
+           })
+           .then(response => response.json())
+           .then(data => {
+            const BotResponse = data.response;
+            appendMessage(botResponse, 'bot');
+           })
+           .catch(error => {
+            console.error('Erro ao obter a resposta do bot: ', error());
+           });
+        });
+
+    
+        // Função para gerar a resposta do bot com base na mensagem do usuário
+        function generateBotResponse(message) {
+            message = message.toLowerCase();
+            if (message.includes('roteador') && message.includes('não está funcionando')) {
+                return "Por favor, retire o roteador da tomada e aguarde 30 segundos antes de ligá-lo novamente.";
+            } else if (message.includes('horário de funcionamento')) {
+                return "O horário de funcionamento da LCR é das 9h às 18h de segunda a sexta-feira mas aqui temos atendimento 24.";
+            } else if (message.includes('garantia dos produtos') || message.includes('garantia dos produtos lcr')) {
+                return "Os produtos da LCR possuem garantia de 1 ano a partir da data de compra.";
+            } else {
+                return "Desculpe, não entendi a pergunta. Como posso ajudar?";
+            }
+        }
+        
+
+        // Função para adicionar mensagem ao chatbox
+        function appendMessage(message, sender) {
+            const messageClass = sender === 'user' ? 'user-message' : 'bot-message';
+            const messageElement = document.createElement('div');
+            messageElement.classList.add('message', messageClass);
+            messageElement.textContent = message;
+            chatBox.appendChild(messageElement);
+            chatBox.scrollTop = chatBox.scrollHeight;
+        }
+    </script>
+</body>
+</html>
