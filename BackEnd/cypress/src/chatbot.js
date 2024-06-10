@@ -10,6 +10,7 @@ require('dotenv').config();
 
 // Recupera a API e instancia a IA
 const apiKey = process.env.GEMINI_API_KEY;
+console.log(apiKey);
 const genAI = new GoogleGenerativeAI(apiKey);
 
 const fs = require('fs');
@@ -19,13 +20,13 @@ const caminhoDoArquivo = 'BackEnd/cypress/instrucoes.txt';
 
 // Lê o arquivo e tenta retornar seu valor
 function lerArquivo(caminho) {
-    try {
-        const data = fs.readFileSync(caminho, 'utf8');
-        return data;
-    } catch (err) {
-        console.error('Erro ao ler o arquivo:', err);
-        return null;
-    }
+  try {
+      const data = fs.readFileSync(caminho, 'utf8');
+      return data;
+  } catch (err) {
+      console.error('Erro ao ler o arquivo:', err);
+      return null;
+  }
 }
 
 // Salva as instruções em uma variável
@@ -48,20 +49,20 @@ const generationConfig = {
 // Filtra conteúdo indesejado
 const safetySettings = [
   {
-    category: HarmCategory.HARM_CATEGORY_HARASSMENT,
-    threshold: HarmBlockThreshold.BLOCK_LOW_AND_ABOVE,
+      category: HarmCategory.HARM_CATEGORY_HARASSMENT,
+      threshold: HarmBlockThreshold.BLOCK_LOW_AND_ABOVE,
   },
   {
-    category: HarmCategory.HARM_CATEGORY_HATE_SPEECH,
-    threshold: HarmBlockThreshold.BLOCK_LOW_AND_ABOVE,
+      category: HarmCategory.HARM_CATEGORY_HATE_SPEECH,
+      threshold: HarmBlockThreshold.BLOCK_LOW_AND_ABOVE,
   },
   {
-    category: HarmCategory.HARM_CATEGORY_SEXUALLY_EXPLICIT,
-    threshold: HarmBlockThreshold.BLOCK_LOW_AND_ABOVE,
+      category: HarmCategory.HARM_CATEGORY_SEXUALLY_EXPLICIT,
+      threshold: HarmBlockThreshold.BLOCK_LOW_AND_ABOVE,
   },
   {
-    category: HarmCategory.HARM_CATEGORY_DANGEROUS_CONTENT,
-    threshold: HarmBlockThreshold.BLOCK_LOW_AND_ABOVE,
+      category: HarmCategory.HARM_CATEGORY_DANGEROUS_CONTENT,
+      threshold: HarmBlockThreshold.BLOCK_LOW_AND_ABOVE,
   },
 ];
 
@@ -73,8 +74,19 @@ const chatSession = model.startChat({
 });
 
 async function getBotResponse(userMessage) {
-  const result = await chatSession.sendMessage(userMessage);
-  return result.response.text();
+  console.log('Enviando mensagem para o bot:', userMessage);  // Log para verificar a mensagem enviada
+  try {
+      const result = await chatSession.sendMessage(userMessage);
+      const botResponse = result.response.text();
+      console.log('Resposta da API:', botResponse);  // Log para verificar a resposta da API
+      return botResponse;
+  } catch (error) {
+      console.error('Erro ao obter resposta da API:', error);  // Log para erros
+      throw error;
+  }
 }
 
-module.exports = { getBotResponse };
+
+module.exports = {
+  getBotResponse
+};

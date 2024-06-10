@@ -1,7 +1,7 @@
 const express = require('express');
 const bodyParser = require('body-parser');
 const path = require('path');
-const chatbot = require('./src/chatbot.js');
+const { getBotResponse } = require('./src/chatbot.js');
 
 const app = express();
 const PORT = process.env.PORT || 3000;
@@ -20,10 +20,13 @@ app.get('/', (req, res) => {
 // Rota para o chatbot
 app.post('/chat', async (req, res) => {
   const userMessage = req.body.message;
+  console.log('Mensagem do usuário recebida:', userMessage);  // Log para verificar a mensagem recebida
   try {
-    const botResponse = await chatbot.getBotResponse(userMessage);
+    const botResponse = await getBotResponse(userMessage);
+    console.log('Resposta do bot:', botResponse);  // Log para verificar a resposta do bot
     res.json({ response: botResponse });
   } catch (error) {
+    console.error('Erro ao obter a resposta do bot:', error);  // Log para erros
     res.status(500).json({ error: 'Erro ao obter a resposta do bot.' });
   }
 });
