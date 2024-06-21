@@ -184,10 +184,7 @@
             const messageClass = sender === 'user' ? 'user-message' : 'bot-message';
             const messageElement = document.createElement('div');
             messageElement.classList.add('message', messageClass);
-
-            // Substituir texto entre asteriscos por tags <strong>
-            const formattedMessage = message.replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>');
-
+            const formattedMessage = message.replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>'); // Deixa em negrito texto entre **
             const messageText = document.createElement('p');
             messageText.innerHTML = formattedMessage;
             messageElement.appendChild(messageText);
