@@ -184,8 +184,12 @@
             const messageClass = sender === 'user' ? 'user-message' : 'bot-message';
             const messageElement = document.createElement('div');
             messageElement.classList.add('message', messageClass);
+
+            // Substituir texto entre asteriscos por tags <strong>
+            const formattedMessage = message.replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>');
+
             const messageText = document.createElement('p');
-            messageText.textContent = message;
+            messageText.innerHTML = formattedMessage;
             messageElement.appendChild(messageText);
             chatBox.appendChild(messageElement);
             chatBox.scrollTop = chatBox.scrollHeight;
